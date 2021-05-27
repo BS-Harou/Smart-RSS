@@ -1,29 +1,28 @@
 {
-  "name": "smartrss",
-  "version": "2.0.0",
-  "description": "RSS Reader for Opera 15+",
-  "homepage": "http://blog.martinkadlec.eu/post/501-smart-rss-final-v10",
-  "dependencies": {},
-  "devDependencies": {
-    "grunt": ">=0.4.1",
-    "grunt-contrib-jshint": ">=0.6.4",
-    "grunt-contrib-requirejs": ">=0.4.1",
-    "grunt-contrib-stylus": ">=0.8.0",
-    "grunt-contrib-watch": ">=0.5.3",
-    "grunt-contrib-yuidoc": "~0.5.0",
-    "ncp": "~0.4.2"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/BS-Harou/Smart-RSS.git"
-  },
-  "author": "Martin Kadlec",
-  "license": "BSD-2-Clause",
-  "bugs": {
-    "url": "https://github.com/BS-Harou/Smart-RSS/issues"
-  },
-  "engine": "node >= 0.10.0"
+    "name": "smartrss",
+    "version": "2.0.0",
+    "description": "RSS Reader",
+    "homepage": "https://github.com/zakius/Smart-RSS",
+    "dependencies": {},
+    "devDependencies": {
+        "adm-zip": "^0.4.14",
+        "grunt": "^1.1.0",
+        "grunt-contrib-copy": "^1.0.0",
+        "grunt-contrib-watch": "^1.1.0",
+        "md5-file": "^4.0.0",
+        "semver": "^6.1.1"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/zakius/Smart-RSS.git"
+    },
+    "author": "zakius",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/zakius/Smart-RSS/issues"
+    },
+    "engine": "node >= 0.10.0"
 }

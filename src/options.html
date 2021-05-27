@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Smart RSS - Options</title>
+  <link href="styles/option.css" rel="stylesheet">
+  <script src="scripts/options/options.js"></script>
+</head>
+<body>
+<article id="content">
+  <header id="logo">
+    <i id="logo-icon"></i>
+    <h1>Smart RSS</h1>
+  </header>
+
+  <details>
+    <summary class="section-header">Localization</summary>
+    <section>
+      <label class="web-content-select-label" title="Contact me if you want to make translation for your lang.">
+        <span class="selectLabel">Language:</span>
+        <select id="lang">
+          <option value="en">English</option>
+          <option value="cs">Čeština</option>
+          <option value="sk">Slovenčina</option>
+          <option value="de">Deutsch</option>
+          <option value="tr">Türkçe</option>
+          <option value="pl">Polski</option>
+          <option value="ru">Русский</option>
+          <option value="hu">Magyar</option>
+          <option value="nl">Nederlands</option>
+          <option value="fr">Français</option>
+          <option value="pt">Português</option>
+          <option value="hr">Hrvatski</option>
+          <option value="es">Español</option>
+        </select>
+      </label>
+
+      <label class="web-content-select-label" title="Normal = DD.MM.YYYY, ISO = YYYY-MM-DD, US = MM/DD/YYYY">
+        <span class="selectLabel">Date format:</span>
+        <select id="dateType">
+          <option value="normal">Normal</option>
+          <option value="iso">ISO</option>
+          <option value="us">US</option>
+        </select>
+      </label>
+      <label class="web-content-select-label" title="Time format">
+        <span class="selectLabel">Time format:</span>
+        <select id="hoursFormat">
+          <option value="24h">24h</option>
+          <option value="12h">12h (AM/PM)</option>
+        </select>
+      </label>
+    </section>
+  </details>
+
+  <details>
+    <summary class="section-header">Appearance</summary>
+    <section>
+
+      <label class="web-content-select-label">
+        <span class="selectLabel">Layout:</span>
+        <input alt="horizontal" src="images/layout_horizontal.png" type="image" value="horizontal"/>
+        <input alt="vertical" src="images/layout_vertical.png" type="image" value="vertical"/>
+      </label>
+
+      <label class="web-content-select-label" for="sortBy">
+        <span class="selectLabel">Sorting:</span>
+        <select class="half-size" data-name="sortBy" id="sortBy">
+          <option value="date">Date</option>
+          <option value="title">Title</option>
+          <option value="author">Author</option>
+        </select>
+        <select class="half-size" data-name="sortOrder" id="sortOrder">
+          <option value="desc">Descending</option>
+          <option value="asc">Ascending</option>
+        </select>
+      </label>
+
+      <label class="web-content-select-label" for="sortBy2">
+        <span class="selectLabel">Secondary sorting:</span>
+        <select class="half-size" data-name="sortBy2" id="sortBy2">
+          <option value="date">Date</option>
+          <option value="title">Title</option>
+          <option value="author">Author</option>
+        </select>
+        <select class="half-size" data-name="sortOrder2" id="sortOrder2">
+          <option value="desc">Descending</option>
+          <option value="asc">Ascending</option>
+        </select>
+      </label>
+
+      <label class="web-content-select-label" for="showFullHeadline">
+        <span class="selectLabel">Show full headline:</span>
+        <select class="half-size" data-name="showFullHeadline" id="showFullHeadline">
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </select>
+      </label>
+
+      <label class="web-content-select-label" for="displayFaviconInsteadOfPin">
+        <span class="selectLabel">Display favicon instead of pin when multiple sources selected:</span>
+        <select class="half-size" data-name="displayFaviconInsteadOfPin" id="displayFaviconInsteadOfPin">
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </select>
+      </label>
+
+      <label class="web-content-select-label" for="lines">
+        <span class="selectLabel">Article list display mode:</span>
+        <select class="half-size" data-name="lines" id="lines">
+          <option value="1">One Line</option>
+          <option value="2">Two Lines</option>
+        </select>
+      </label>
+
+      <label class="web-content-select-label"
+             title="Color of icon that shows up in extension button when new articles are downloaded.">
+        <span class="selectLabel">New articles notification icon:</span>
+        <select id="icon">
+          <option value="orange">Orange</option>
+          <option value="blue">Blue</option>
+          <option value="green">Green</option>
+          <option value="purple">Purple</option>
+          <option value="red">Red</option>
+          <option value="royalblue">Royal Blue</option>
+          <option value="disabled">Disabled</option>
+        </select>
+      </label>
+
+      <label class="web-content-select-label"
+             title="When icon should indicate that feeds were found on website.">
+        <span class="selectLabel">Feed detection:</span>
+        <select id="detectFeeds">
+          <option value="true">Enabled</option>
+          <option value="false">Disabled</option>
+        </select>
+      </label>
+
+      <label class="web-content-select-label"
+             title="When icon should indicate that feeds were found on website.">
+        <span class="selectLabel">Subscribed feeds handling:</span>
+        <select id="hideSubscribedFeeds">
+          <option value="mark">Mark them on the list</option>
+          <option value="hide">Hide them from the list</option>
+        </select>
+      </label>
+
+      <label class="web-content-select-label"
+             title="When icon should indicate that feeds were found on website.">
+        <span class="selectLabel">Show new sources icon:</span>
+        <select id="showNewArticlesIcon">
+          <option value="always">Always</option>
+          <option value="not-subscribed-found">When there is at least one unsubscribed feed</option>
+          <option value="no-subscribed-found">When none of found feeds are subscribed</option>
+          <option value="never">Never</option>
+        </select>
+      </label>
+
+
+      <label class="web-content-select-label"
+             title="Color of icon that shows up in extension button when new articles are downloaded.">
+        <span class="selectLabel">New sources found icon:</span>
+        <select id="sourcesFoundIcon">
+          <option value="arrow-orange">Arrow Orange</option>
+          <option value="orange">Orange</option>
+          <option value="blue">Blue</option>
+          <option value="green">Green</option>
+          <option value="purple">Purple</option>
+          <option value="red">Red</option>
+          <option value="royalblue">Royal Blue</option>
+        </select>
+      </label>
+
+      <label class="web-content-select-label">
+        <span class="selectLabel">Show special All Feeds item on feeds list:</span>
+        <select id="showAllFeeds">
+          <option value="true">Yes</option>
+          <option value="false">No</option>
+        </select>
+      </label>
+
+      <label class="web-content-select-label"
+             title="Controls whether media preview should be visible when displaying article contents. Can be overridden per source">
+        <span class="selectLabel">Open media preview automatically:</span>
+        <select id="openEnclosure">
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+      </label>
+
+      <label class="web-content-select-label"
+             title="Controls whether media preview should be visible when displaying article contents. Can be overridden per source">
+        <span class="selectLabel">Show only sources with unread articles:</span>
+        <select id="showOnlyUnreadSources">
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+      </label>
+
+      <label class="web-content-select-label">
+        <span class="selectLabel">Disable date groups:</span>
+        <input id="disableDateGroups" type="checkbox"/>
+      </label>
+
+      <label class="web-content-select-label">
+        <span class="selectLabel">Article font size:</span>
+        <input id="articleFontSize" max="150" min="50" step="10" type="number"/>%
+      </label>
+
+      <label class="web-content-select-label">
+        <span class="selectLabel">UI font size:</span>
+        <input id="uiFontSize" max="150" min="50" step="10" type="number"/>%
+      </label>
+
+      <label class="web-content-select-label"
+             title="Replace favicon of feed with spinner animation during feed update.">
+        <span class="selectLabel">Show spinner during update:</span>
+        <input id="showSpinner" type="checkbox"/>
+      </label>
+
+      <label class="web-content-select-label">
+        <span class="selectLabel">User CSS:</span>
+        <textarea id="userStyle" rows="10" cols="45"></textarea>
+      </label>
+      <label class="web-content-select-label">
+        <span class="selectLabel"></span>
+        <span>
+        <button id="suggest-style">Colors template</button>
+        <button id="reset-style">Reset style</button>
+      </span>
+      </label>
+
+      <label class="web-content-select-label"
+             title="Controls whether interface colors should be inverted, works as most basic dark theme">
+        <span class="selectLabel">Invert colors:</span>
+        <select id="invertColors">
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+      </label>
+    </section>
+  </details>
+
+
+  <details>
+    <summary class="section-header">Behavior</summary>
+    <section>
+      <label class="web-content-select-label"
+             title="If checked clicking toolbar button will open new tab, else it will load reader in the same tab.">
+        <span class="selectLabel">Open Reader in new tab:</span>
+        <input id="openInNewTab" type="checkbox"/>
+      </label>
+
+      <label class="web-content-select-label">
+        <span class="selectLabel">Select first article on feed selection:</span>
+        <input id="selectFirstArticle" type="checkbox"/>
+      </label>
+
+      <label class="web-content-select-label">
+        <span class="selectLabel">Select all feeds on reader open:</span>
+        <input id="selectAllFeeds" type="checkbox"/>
+      </label>
+
+      <label class="web-content-select-label"
+             title="This option will immediately mark as read every article you visit in the right column.">
+        <span class="selectLabel">Automatically mark articles as read:</span>
+        <input id="readOnVisit" type="checkbox"/>
+      </label>
+
+      <label class="web-content-select-label"
+             title="When you select more than 10 feeds in article list and choose 'Open article link' options from context menu.">
+        <span class="selectLabel">Ask when opening 10+ tabs:</span>
+        <input id="askOnOpening" type="checkbox"/>
+      </label>
+
+      <label class="web-content-select-label" title="Effects date in article list.">
+        <span class="selectLabel">Always show full date:</span>
+        <input id="fullDate" type="checkbox"/>
+      </label>
+
+      <label class="web-content-select-label"
+             title="If enabled, pressing arrow up in a list when the first item is selected will select the last item and visa-versa.">
+        <span class="selectLabel">Circular navigation:</span>
+        <input id="circularNavigation" type="checkbox"/>
+      </label>
+
+      <label class="web-content-select-label" title="If enabled, title of article is a link to full article.">
+        <span class="selectLabel">Title is link to full article:</span>
+        <input id="titleIsLink" type="checkbox"/>
+      </label>
+
+      <label class="web-content-select-label" title="Controls how to handle `Enter` press on article list">
+        <span class="selectLabel">Enter opens articles in:</span>
+        <select id="openNewTab">
+          <option value="background">Background</option>
+          <option value="foreground">Foreground</option>
+        </select>
+      </label>
+
+      <label class="web-content-select-label" title="Ask to prevent accidental removal of pinned items.">
+        <span class="selectLabel">Ask when removing pinned items:</span>
+        <select id="askRmPinned">
+          <option value="none">Never</option>
+          <option value="trashed">On removal from trash</option>
+          <option value="all">Always</option>
+        </select>
+      </label>
+
+      <label class="web-content-select-label">
+        <span class="selectLabel">Icon badge:</span>
+        <select id="badgeMode">
+          <option value="disabled">disabled</option>
+          <option value="unread"># of unread</option>
+          <option value="unvisited"># of unvisited</option>
+          <option value="sources"># of sources</option>
+        </select>
+      </label>
+
+      <label class="web-content-select-label">
+        <span class="selectLabel">Concurrent downloads:</span>
+        <input id="concurrentDownloads" max="32" min="1" step="1" type="number"/>
+      </label>
+
+      <label class="web-content-select-label">
+        <span class="selectLabel">Disable auto update completely:</span>
+        <input id="disableAutoUpdate" type="checkbox"/>
+      </label>
+
+      <label class="web-content-select-label">
+        <span class="selectLabel">Default update frequency (minutes):</span>
+        <input id="updateFrequency" max="180" min="1" step="1" type="number"/>
+      </label>
+
+
+      <label class="web-content-select-label">
+        <span class="selectLabel">Auto remove after:</span>
+        <select id="autoremove">
+          <option value="0">Never</option>
+          <option value="1">Older than day</option>
+          <option value="7">Older than week</option>
+          <option value="30">Older than month</option>
+          <option value="60">Older than two months</option>
+        </select>
+      </label>
+
+      <label class="web-content-select-label">
+        <span class="selectLabel">Auto remove:</span>
+        <select id="autoremovesetting">
+          <option value="ALL">Remove all</option>
+          <option value="KEEP_UNVISITED">Keep unvisited</option>
+          <option value="KEEP_UNREAD">Keep unread</option>
+        </select>
+      </label>
+
+      <label class="web-content-select-label">
+        <span class="selectLabel">Auto remove from trash:</span>
+        <select id="autoremovetrash">
+          <option value="0">Never</option>
+          <option value="1">Older than day</option>
+          <option value="7">Older than week</option>
+          <option value="30">Older than month</option>
+          <option value="60">Older than two months</option>
+        </select>
+      </label>
+
+
+      <label class="web-content-select-label" id="queries" title="Comma separated list, case insensitive, start with : to search in contents too">
+        <span class="selectLabel">Auto pin articles matching:</span>
+        <input name="queries">
+      </label>
+
+      <label class="web-content-select-label" title="Parser used to get favicons, switching it from internal will cause domain names of sources requiring Favicon data to be sent to external provider">
+        <span class="selectLabel">Favicon parser:</span>
+        <select id="faviconSource">
+          <option value="internal">Internal</option>
+          <option value="google">Google</option>
+          <option value="duckduckgo">DuckDuckGo</option>
+        </select>
+      </label>
+
+    </section>
+  </details>
+
+
+  <details>
+    <summary class="section-header">Hotkeys</summary>
+    <section id="hotkeys">
+      <!-- hotkeys list gets automatically generated here -->
+    </section>
+  </details>
+
+  <details>
+    <summary class="section-header">Sound notifications</summary>
+    <section>
+      <label class="web-content-select-label"
+             title="If enabled, browser will make a sound when new articles are downloaded.">
+        <span class="selectLabel">Enable sound notifications:</span>
+        <input id="soundNotifications" type="checkbox"/>
+      </label>
+
+      <label class="web-content-select-label">
+        <span class="selectLabel">Use sound:</span>
+        <select id="useSound">
+          <option value=":user">User sound</option>
+          <option value=":none">None</option>
+          <optgroup label="Default sounds">
+            <option value="knock">Knock</option>
+            <option value="taptap">Taptap</option>
+            <option value="glass">Glass</option>
+            <option value="pop">Pop</option>
+            <option value="nightbird">Nightbird</option>
+          </optgroup>
+        </select>
+      </label>
+
+      <label class="web-content-select-label" title="Select sound file to be played.">
+        <span class="selectLabel">User sound:</span>
+        <input id="default-sound" type="file"/>
+      </label>
+
+      <label class="web-content-select-label">
+        <span class="selectLabel">Volume:</span>
+        <span class="valspan">0% <input id="soundVolume" max="1" min="0" step="0.05" type="range"/> 100%</span>
+      </label>
+    </section>
+  </details>
+
+
+  <details>
+    <summary class="section-header">Export/Import</summary>
+    <section>
+      <h2 class="section-header">Export</h2>
+
+      <label class="web-content-select-label">
+        <span class="selectLabel">Settings:</span>
+        <button id="export-settings">Export</button>
+        <a href="" id="settings-exported"></a>
+      </label>
+      <label class="web-content-select-label"
+             title="SMART is special format of Smart RSS extension. It exports/imports both, feeds and feeds's articles.">
+        <span class="selectLabel">SMART:</span>
+        <button id="export-smart">Export</button>
+        <a href="" id="smart-exported"></a>
+      </label>
+      <label class="web-content-select-label"
+             title="You can use OPML format to export feeds from Smart RSS to Opera 12.">
+        <span class="selectLabel">OPML:</span>
+        <button id="export-opml">Export</button>
+        <a href="" id="opml-exported"></a>
+      </label>
+    </section>
+    <section>
+      <h2 class="section-header">Import</h2>
+      <div class="ff-warning">Warning: Smart RSS will reload after finishing the SMART import, it's expected
+                              behavior
+      </div>
+      <label class="web-content-select-label">
+        <span class="selectLabel">Settings:</span>
+        <input id="import-settings" type="file" accept=".smart">
+        <span id="settings-imported"></span>
+      </label>
+
+      <label class="web-content-select-label"
+             title="SMART is special format of Smart RSS extension. It exports/imports all feeds, folders and articles.">
+        <span class="selectLabel">SMART:</span>
+        <input id="import-smart" type="file" accept=".smart">
+        <span id="smart-imported"></span>
+      </label>
+
+      <label class="web-content-select-label"
+             title="You can use OPML format to import feeds and folders from Opera 12 to Smart RSS.">
+        <span class="selectLabel">OPML:</span>
+        <input id="import-opml" type="file" accept=".opml">
+        <span id="opml-imported"></span>
+      </label>
+    </section>
+  </details>
+
+
+  <details>
+    <summary class="section-header">Advanced features. Mostly for troubleshooting purposes</summary>
+    <section>
+      <h2 class="section-header">Clear Favicons</h2>
+      <label class="web-content-select-label" title="This will remove all yours feeds and articles and settings.">
+        <span class="selectLabel">Remove Favicon data:</span>
+        <button id="clear-favicons">!!Clear!!</button>
+        <span id="favicons-cleared"></span>
+      </label>
+    </section>
+
+    <section>
+      <h2 class="section-header">Clear removed articles store</h2>
+      <label class="web-content-select-label"
+             title="This will remove all removed articles cache. It may cause some removed articles to appear again.">
+        <span class="selectLabel">Remove removed articles data:</span>
+        <button id="clear-removed-storage">!!Clear!!</button>
+        <span id="removed-storage-cleared"></span>
+      </label>
+    </section>
+
+    <section>
+      <h2 class="section-header">Clear settings</h2>
+      <label class="web-content-select-label" title="This will remove all yours feeds and articles and settings.">
+        <span class="selectLabel">Remove extension settings:</span>
+        <button id="clear-settings">!!Clear!!</button>
+        <span id="settings-cleared"></span>
+      </label>
+    </section>
+
+    <section>
+      <h2 class="section-header">Clear data</h2>
+      <label class="web-content-select-label" title="This will remove all yours feeds and articles and settings.">
+        <span class="selectLabel">Remove ALL extension data:</span>
+        <button id="clear-data">!!Clear!!</button>
+        <span id="data-cleared"></span>
+      </label>
+    </section>
+  </details>
+
+
+  <footer>
+    <h2 class="section-header">Version</h2>
+    <p id="version"></p>
+    <p id="browser-info"></p>
+  </footer>
+</article>
+</body>
+</html>

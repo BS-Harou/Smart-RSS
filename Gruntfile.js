@@ -1,177 +1,214 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 
-	// Project configuration.
-	grunt.initConfig({
-		pkg: grunt.file.readJSON('package.json'),
-
-
-		jshint: {
-			options: {
-				curly:    false, // true: force { }
-				eqnull:   true,  // true: enable something == null
-				eqeqeq:   false, // true: force ===
-				immed:    true,  // true: immidiatly invocated fns has to be in ()
-				newcap:   true,  // true: construcotr has to have firt letter uppercased
-				noarg:    true,  // true: no arguments.caller and arguments.callee
-				sub:      true,  // true: no warning about a['something'] if a.something can be used
-				undef:    true,  // true: can't use undeclared vars
-				browser:  true,  // true: set window object and other stuff as globals
-				devel:    true,  // true: set alert,confirm,console,... as globals
-				boss:     true,  // true: allow assigments in conditions and return statements
-				forin:    true,  // true: hasOwnProperty has to be in all for..in cycles
-				noempty:  true,  // true: no empty blocks
-				unused:   true,  // true: warn about unused vars
-				trailing: true,  // true: no trailing whitespaces
-				supernew: true,  // true: enable 'new Constructor' instead of 'new Constructor()' 
-				onevar:   false, // true: only one var per fn
-				funcscope: false,   // false: no 'var' in blocks
-				maxdepth: 5,        // max nesting depth
-				quotmark: 'single', // single: force '
-				'-W041': true,      // don't warn about something == false/true
-				'-W117': true,      // don't warn about not defined vars until I refactorize bg.js
-				globals: {
-					app: true,
-					bg: true,
-					tabID: true,
-					chrome: false,
-					define: false,
-					require: false,
-
-					/* browser globals not recognized by browser or devel options */
-					requestAnimationFrame: true,
-					URL: true,
-					HTMLCollection: true
-				}
-			},
-			all: ['scripts/app/**/*.js', 'scripts/bgprocess/**/*.js']
-		},
-
-		requirejs: {
-			app: {
-				options: {
-					name: '../main',
-					baseUrl: 'scripts/app',
-					generateSourceMaps: true,
-					preserveLicenseComments: false,
-					optimize: 'uglify2',
-					waitSeconds: 0,
-					paths: {
-						jquery: '../libs/jquery.min',
-						underscore: '../libs/underscore.min',
-						backbone: '../libs/backbone.min',
-						text: '../text',
-						i18n: '../i18n',
-						domReady: '../domReady'
-					},
-					shim: {
-						jquery: {
-							exports: '$'
-						},
-						backbone: {
-							deps: ['underscore', 'jquery'],
-							exports: 'Backbone'
-						},
-						underscore: {
-							exports: '_'
-						}
-					},
-					excludeShallow: ['modules/Locale', 'jquery', 'underscore', 'backbone'],
-					out: 'scripts/main-compiled.js'
-				}
-			},
-			bg: {
-				options: {
-					name: '../bgprocess',
-					baseUrl: 'scripts/bgprocess',
-					generateSourceMaps: true,
-					preserveLicenseComments: false,
-					optimize: 'uglify2',
-					waitSeconds: 0,
-					paths: {
-						jquery: '../libs/jquery.min',
-						underscore: '../libs/underscore.min',
-						backbone: '../libs/backbone.min',
-						text: '../text',
-						i18n: '../i18n',
-						md5: '../libs/md5',
-						domReady: '../domReady',
-						backboneDB: '../libs/backbone.indexDB'
-					},
-					shim: {
-						jquery: {
-							exports: '$'
-						},
-						backboneDB: {
-							deps: ['backbone']
-						},
-						backbone: {
-							deps: ['underscore', 'jquery'],
-							exports: 'Backbone'
-						},
-						underscore: {
-							exports: '_'
-						},
-						md5: {
-							exports: 'CryptoJS'
-						}
-					},
-					excludeShallow: ['jquery', 'underscore', 'backbone', 'backboneDB'],
-					out: 'scripts/bgprocess-compiled.js'
-				}
-			}
-		},
-
-		stylus: {
-			compile: {
-				options: {
-					compress: false,
-					//imports: ['nib']
-				},
-				files: {
-					//'styles/options-compiled.css': 'options.styl', // 1:1 compile
-					'styles/main-compiled.css': [
-						'styles/global.styl', 
-						'styles/feeds.styl',
-						'styles/articles.styl',
-						'styles/content.styl'
-					]
-				}
-			}
-		},
-		watch: {
-			scripts: {
-				files: ['styles/*.styl'],
-				tasks: ['stylus'],
-				options: {
-					spawn: false,
-					interrupt: true,
-					events: ['all']
-				},
-			},
-		},
-		yuidoc: {
-			compile: {
-				name: '<%= pkg.name %>',
-				description: '<%= pkg.description %>',
-				version: '<%= pkg.version %>',
-				url: '<%= pkg.homepage %>',
-				options: {
-					paths: ['scripts'],
-					/*themedir: 'path/to/custom/theme/',*/
-					outdir: 'docs/'
-				}
-			}
-		}
-	});
+    const {join, dirname} = require('path');
+    const {readdirSync, lstatSync} = require('fs');
 
 
-	grunt.loadNpmTasks('grunt-contrib-jshint');
-	grunt.loadNpmTasks('grunt-contrib-requirejs');
-	grunt.loadNpmTasks('grunt-contrib-stylus');
-	grunt.loadNpmTasks('grunt-contrib-watch');
-	grunt.loadNpmTasks('grunt-contrib-yuidoc');
+    const cleanup = function () {
+        const defaultConfig = {
+            removeFromManifest: [],
+        };
+        const config = Object.assign(defaultConfig, this.data);
+        const root = join(__dirname, 'dist', this.target);
+        const manifestPath = join(root, 'manifest.json');
+        const originalManifest = grunt.file.readJSON(manifestPath);
+        let newManifest = Object.assign({}, originalManifest);
+        if (config.csp) {
+            newManifest['content_security_policy'] = originalManifest[config.csp];
+            delete newManifest[config.csp];
+        }
+        if (config.permissions) {
+            newManifest['permissions'] = originalManifest[config.permissions];
+            delete newManifest[config.permissions];
+        }
+        if (config.removeFromManifest) {
+            config.removeFromManifest.forEach((item) => {
+                delete newManifest[item];
+            });
+        }
+        console.log(newManifest);
+        grunt.file.write(manifestPath, JSON.stringify(newManifest, null, 2));
+    };
 
-	// Default task(s).
-	grunt.registerTask('default', ['jshint']);
-	grunt.registerTask('rjs', ['requirejs:app', 'requirejs:bg']);
+    const commit = function (level = 'patch') {
+        let {exec} = require('child_process');
+        let done = this.async();
+        exec('git add *', (err, stdout, stderr) => {
+            if (err) {
+                console.log(`stderr: ${stderr}`);
+                done(false);
+                return;
+            }
+            exec(`git commit -m "auto version bump: ${level}"`, (err) => {
+                if (err) {
+                    done(false);
+                    return;
+                }
+                done(true);
+            });
+        });
+    };
+
+    const bumpVersion = function (level = 'patch') {
+        const semver = require('semver');
+        const manifestPath = join(__dirname, 'src/manifest.json');
+        const manifest = grunt.file.readJSON(manifestPath);
+        manifest.version = semver.inc(manifest.version, level);
+        grunt.file.write(manifestPath, JSON.stringify(manifest, null, 2));
+    };
+
+
+    const scan = (dir) => {
+        const filesList = [];
+        readdirSync(dir).forEach((file) => {
+            if (file[0] === '.') {
+                return;
+            }
+            const filePath = join(dir, file);
+
+            if (lstatSync(filePath).isDirectory()) {
+                filesList.push(...scan(filePath));
+                return;
+            }
+            filesList.push(filePath);
+        });
+        return filesList;
+    };
+
+    const zip = function () {
+        const defaultConfig = {
+            dirname: this.target,
+        };
+        const config = Object.assign(defaultConfig, this.data);
+        const root = join(__dirname, 'dist', config.dirname);
+        const manifestPath = join(root, 'manifest.json');
+
+
+        const filesList = scan(root);
+
+        const version = getVersion(manifestPath);
+        const AdmZip = require('adm-zip');
+        const zipFile = new AdmZip();
+        filesList.forEach((file) => {
+            // TODO: shorten somehow, make sure that `path` doesn't contain leading slashes nor backslashes
+            let path = dirname(file).replace(root + '/', '').replace(root + '\\', '').replace(root, '');
+
+            zipFile.addLocalFile(file, path);
+        });
+        zipFile.writeZip(join(__dirname, 'dist', 'SmartRSS_v' + version + '_' + this.target + '.zip'));
+    };
+
+    const getVersion = function (manifest) {
+        return grunt.file.readJSON(manifest).version;
+    };
+
+    const stripComments = function () {
+        const defaultConfig = {
+            dirname: this.target,
+        };
+        const config = Object.assign(defaultConfig, this.data);
+        const multilineComment = /^[\t\s]*\/\*\*?[^!][\s\S]*?\*\/[\r\n]/gm
+        const specialComments = /^[\t\s]*\/\*!\*?[^!][\s\S]*?\*\/[\r\n]/gm
+        const singleLineComment = /^[\t\s]*(\/\/)[^\n\r]*[\n\r]/gm
+        const root = join(__dirname, 'dist', config.dirname);
+
+        const filesList = scan(root);
+
+        filesList.forEach((filePath) => {
+            if (!filePath.endsWith('.js')) {
+                return;
+            }
+            const contents = grunt.file.read(filePath)
+                .replace(multilineComment, '')
+                .replace(singleLineComment, '')
+                .replace(specialComments, '');
+
+            grunt.file.write(filePath, contents);
+        });
+    }
+
+
+// Project configuration.
+    grunt.initConfig({
+        watch: {
+            scripts: {
+                files: ['src/**/*'],
+                tasks: ['prepare'],
+                options: {
+                    spawn: true
+                }
+            }
+        },
+        cleanup: {
+            firefox: {
+                removeFromManifest: [
+                    'chromium_content_security_policy',
+                    'chromium_permissions'
+                ]
+            },
+            chromium: {
+                removeFromManifest: [
+                    'browser_specific_settings',
+                    'developer'
+                ],
+                permissions: 'chromium_permissions',
+                csp: 'chromium_content_security_policy'
+            }
+        },
+        copy: {
+            firefox: {
+                files: [{
+                    expand: true,
+                    cwd: './src/',
+                    src: [
+                        '**/*',
+                        '!images/chrome-small-tile.png'
+                    ],
+                    filter: 'isFile',
+                    dest: './dist/firefox/'
+                }]
+            },
+            chromium: {
+                files: [{
+                    expand: true,
+                    cwd: './src/',
+                    src: [
+                        '**/*',
+                        '!images/chrome-small-tile.png'
+                    ],
+                    filter: 'isFile',
+                    dest: './dist/chromium/'
+                }]
+            }
+        },
+        zip: {
+            firefox: {},
+            chromium: {}
+        },
+        comments: {
+            firefox: {},
+            chromium: {}
+        },
+    });
+
+    grunt.registerTask('bump-version', '', bumpVersion);
+    grunt.registerTask('commit', '', commit);
+    grunt.registerTask('package', ['prepare', 'zip']);
+
+    grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.registerMultiTask('cleanup', '', cleanup);
+    grunt.registerMultiTask('zip', '', zip);
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.registerMultiTask('comments', '', stripComments)
+    grunt.registerTask('prepare', ['copy', 'cleanup', 'comments']);
+
+
+    grunt.registerTask('release', '', function (level = 'patch') {
+        if (!['major', 'minor', 'patch'].includes(level)) {
+            console.error('Wrong update level, aborting');
+            return false;
+        }
+        grunt.task.run(['bump-version:' + level, 'commit:' + level, 'copy', 'cleanup', 'comments', 'zip']);
+    });
 };
+

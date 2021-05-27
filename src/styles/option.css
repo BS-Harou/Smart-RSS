@@ -1,0 +1,140 @@
+html, body {
+  background-color: rgb(237, 237, 237);
+  font: menu;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  padding-left: calc(100vw - 100%);
+}
+
+span.selectLabel {
+  display: inline-block;
+  min-width: 200px;
+  max-width: 200px;
+}
+
+#content {
+  bottom: 0;
+  left: 0;
+  margin: 0 auto;
+  min-width: 700px;
+  max-width: 1000px;
+  right: 0;
+  top: 0;
+  background: white;
+  border-left: 1px solid rgba(0, 0, 0, 0.25);
+  border-right: 1px solid rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+  min-height: 100%;
+  padding: 30px;
+}
+
+
+#logo-icon {
+  display: block;
+  width: 52px;
+  height: 48px;
+  background-repeat: no-repeat;
+  background-image: url('../images/48-inverted-round.png');
+}
+
+
+a {
+  color: rgb(17, 85, 204);
+}
+
+
+.section-header {
+  color: rgb(95, 95, 95);
+  font-size: 1.17rem;
+  font-weight: normal;
+  line-height: 2rem;
+  margin: 20px 0 12px 0;
+}
+
+section div {
+  margin: 5px 20px;
+}
+
+.sub-navigation-option {
+  margin-left: 25px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.checkbox span, input[type=button], input[type=checkbox] {
+  cursor: pointer;
+}
+
+.valspan {
+  vertical-align: middle;
+  font-size: 0.8rem;
+  color: #666;
+}
+
+
+.valspan input[type=range] {
+  padding: 0;
+  margin: 0;
+  vertical-align: middle;
+}
+
+select {
+  cursor: pointer;
+  min-width: 110px;
+}
+
+input[type=number] {
+  min-width: 110px;
+  box-sizing: border-box;
+  padding: 1px 3px;
+}
+
+button {
+  padding: 2px 12px;
+}
+
+input[type=checkbox] {
+  vertical-align: sub;
+}
+
+
+/* --- */
+
+label {
+  margin: 5px 20px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: min-content;
+}
+
+div[class$="warning"] {
+  color: red;
+  margin: 15px 20px 20px 20px;
+}
+
+#reset-style {
+  position: absolute;
+  align-self: end;
+}
+
+#version {
+  margin: 10px 20px;
+}
+
+#hotkeys > label > input {
+  width: 200px;
+}
+
+#hotkeys > label > input:first-child {
+  width: 150px;
+}
+
+button {
+  width: 150px;
+}

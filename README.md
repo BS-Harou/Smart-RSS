@@ -1,82 +1,72 @@
 # Smart RSS extension
 
+Originally developed for Opera 15+ by BS-Harou (Martin Kadlec)
+
 Translations are in scripts/nls/*.js
 
 For technical bug reports use issues here on GitHub
 
-For bugs from user perspective use commments on:
-http://blog.martinkadlec.eu/post/501-smart-rss-final-v10
+## For users
+
+Extension is available in following repositories:
+
+#### AMO: https://addons.mozilla.org/firefox/addon/smart-rss-reader/
+
+#### Chrome Web Store: https://chrome.google.com/webstore/detail/eggggihfcaabljfpjiiaohloefmgejic/
+
+#### Opera Extensions: https://addons.opera.com/extensions/details/smart-rss-4/ (available for Beta and Dev, awaiting manual moderation)
+
+
+## Known issues:
+
+- in Firefox builds prior to `2017-08-09` and derivatives there's issue with CSP that causes extension to fail all requests following the one that got blocked, the only way to recover is to reload extension but it will happen again next time given source is loaded, issue reported to Waterfox MrAlex94/Waterfox#1780 in hope the fix will get ported to Classic - in the meantime attempted to work around this bug by removing CSP header from data loaded by the extension
 
 ## For developers
 
-If you are interested in improving Smart RSS then there are few tips to get started. 
+If you are interested in improving Smart RSS then there are few tips to get started.
 
 First of all you will need several command line tools:
 
-- Git (obviously) - http://msysgit.github.io
-- Node.JS & npm - http://nodejs.org
-- Grunt-cli - http://gruntjs.com/getting-started (npm install -g grunt-cli)
-- Mocha - http://visionmedia.github.io/mocha/ (npm install -g mocha) - for in-app integration tests I load mocha from cdn, but if you want to create out-of-app unit tests you will want to install this.
+- Git
+- Node.JS & npm
+- Grunt-cli
 
 To setup your Smart RSS project open your console, go to your projects folders and type:
 ```
-git clone git@github.com:BS-Harou/Smart-RSS.git smartrss
+git clone git@github.com:zakius/Smart-RSS.git smartrss
 cd smartrss
 npm install
 ```
 
-You should also create .gitignore file including at least:
-```
-node_modules/*
-docs/*
-*.map
-*-compiled.js
-*.sublime-*
-```
-(\*.sublime-\* only if you use sublime text projects)
+Sometimes you may encounter texts ending with `*` or `!` in app, first ones are fallbacks to English text when used locale lacks the needed one and the latter are actual keys displayed when even English text is missing, feel free to submit PR's to fill them. If you change wording or punctuation somewhere please comment that line (using GitHub interface) with reasoning like common conventions or special punctuation rules in given language.
+
 
 To check for jshint errors:
 ```
-grunt jshint
+jshint .
 ```
 
-To compile stylus files to css:
-```
-grunt stylus
-```
+There are multiple grunt tasks defined for this project but only few are meant to be run directly:
 
-You can also use watch task that will automatically compile your stylus files on change:
+```
+grunt prepare
+```
+copies relevant source files to browser specific directories within `dist` subdirectory and cleans up manifests from values not needed by the given browser.
+
+
 ```
 grunt watch
 ```
-
-To generate source documentaion in ./docs run:
-```
-grunt yuidoc
-```
-
-In dev. builds you can run integration tests by pressing shift+insert directly in smart rss tab.
-
-When you are done editing the code you should compile all the js files:
-```
-grunt rjs
-```
+watches for changes in `src` directory and performs `prepare` every time it detects one
 
 
-and then switch to "publish" branch (that will make index.html (bgprocess) and rss.tml (app) use the compiled files instead of loading all the files separately) and rebase it.
 ```
-git checkout publish
-git rebase master
+grunt release:{level=patch}
 ```
 
-Then you can use Opera to make extenion out of it. Opera will automatically ignore all files and folders beggining with "." like ".git", but you might want to remove some other files too (like sublime text projects files). You have to do this manually or use some script that will do this for you. I have a script to do this but it is not yet ready to get published. In future it might work like this:
+is all-in-one solution for releasing new versions of the extension
 
-```
-grunt build
-```
-
-
-Then don't forget to switch back to master banch
-```
-git checkout master
-```
+- increases extension version in manifest by semver `level`
+- commits changes with relevant message
+- performs `prepare`
+- creates browser specific packages of the extension

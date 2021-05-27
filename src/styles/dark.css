@@ -1,0 +1,13 @@
+body.dark-theme:not(#smart-rss-article-body) {
+  -webkit-filter: invert(1);
+}
+
+body.dark-theme :not(.special) .source-icon,
+body.dark-theme#smart-rss-article-body img,
+body.dark-theme#smart-rss-article-body video,
+body.dark-theme#smart-rss-article-body iframe,
+body.dark-theme .enclosure img,
+body.dark-theme .enclosure iframe
+{
+  -webkit-filter: invert(1);
+}
